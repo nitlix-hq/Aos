@@ -1,0 +1,29 @@
+{
+    "compilerOptions": {
+        /* Language and Environment */
+        "target": "esnext" /* Latest stable emit; Workers runtimes support modern JS */,
+        "lib": ["esnext", "dom"] /* ES + DOM APIs */,
+
+        /* Modules */
+        "module": "esnext" /* Output ES modules instead of CommonJS */,
+        "moduleResolution": "bundler" /* Use bundler resolution for ESM compatibility */,
+        "rootDir": "./src" /* Keep source root as is */,
+        "outDir": "./dist" /* Keep output directory as is */,
+
+        /* Emit */
+        "declaration": true /* Generate .d.ts files for type safety */,
+        "esModuleInterop": true /* Maintain compatibility for importing CommonJS modules if needed */,
+        "forceConsistentCasingInFileNames": true /* Ensure consistent import casing */,
+        "isolatedModules": true /* Ensure files are treated as modules for Workers compatibility */,
+
+        /* Type Checking */
+        "strict": true /* Keep strict type checking */,
+        "skipLibCheck": true /* Skip checking .d.ts files for performance */,
+
+        /* Additional Worker-Specific Settings */
+        "noEmitOnError": true /* Prevent emitting files if there are errors */,
+        "allowSyntheticDefaultImports": true /* Allow default imports for ESM compatibility */
+    },
+
+    "exclude": ["tests", "dist"]
+}
