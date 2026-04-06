@@ -1,9 +1,9 @@
 name: Publish package to NPM
 
 on:
-    #set to release to temporarily disable
-    release:
-        types: [created]
+    push:
+        branches:
+            - main
 
 jobs:
     publish:

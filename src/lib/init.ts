@@ -32,6 +32,7 @@ export default function (config: Config = {}): { destroy: () => void } {
     const observers: IntersectionObserver[] = [];
     const managedElements: Element[] = [];
     const addedAttributes = new Map<Element, string[]>();
+    const previousTransitionDelay = new WeakMap<HTMLElement, string>();
 
     document.querySelectorAll('[data-aos]').forEach((aosElem) => {
         const anchorString = aosElem.getAttribute("data-aos-anchor") || "";
@@ -78,6 +79,13 @@ export default function (config: Config = {}): { destroy: () => void } {
             aosElem.setAttribute("data-aos-delay", delay.toString());
             attrs.push("data-aos-delay");
         }
+
+        if (aosElem instanceof HTMLElement) {
+            previousTransitionDelay.set(aosElem, aosElem.style.transitionDelay);
+            const delayMs = Math.max(0, Number.parseInt(aosElem.getAttribute("data-aos-delay") || "0", 10) || 0);
+            aosElem.style.transitionDelay = delayMs === 0 ? "" : `${delayMs}ms`;
+        }
+
         addedAttributes.set(aosElem, attrs);
     });
 
@@ -88,6 +96,12 @@ export default function (config: Config = {}): { destroy: () => void } {
             });
             managedElements.forEach((elem) => {
                 elem.classList.remove("aos-init", "aos-animate");
+                if (elem instanceof HTMLElement && previousTransitionDelay.has(elem)) {
+                    const prev = previousTransitionDelay.get(elem)!;
+                    if (prev) elem.style.transitionDelay = prev;
+                    else elem.style.removeProperty("transition-delay");
+                    previousTransitionDelay.delete(elem);
+                }
                 const attrs = addedAttributes.get(elem);
                 if (attrs) {
                     attrs.forEach((attr) => elem.removeAttribute(attr));

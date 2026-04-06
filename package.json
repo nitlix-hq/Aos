@@ -1,6 +1,6 @@
 {
     "name": "@nitlix-hq/aos",
-    "version": "1.0.0",
+    "version": "1.0.2",
     "author": "nitlix-hq",
     "repository": {
         "type": "git",
@@ -27,5 +27,8 @@
     "homepage": "https://github.com/nitlix-hq/Aos",
     "license": "MIT",
     "type": "module",
-    "types": "./dist/exports.d.ts"
+    "types": "./dist/exports.d.ts",
+    "publishConfig": {
+        "access": "public"
+    }
 }
